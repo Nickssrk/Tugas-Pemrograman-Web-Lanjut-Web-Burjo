@@ -1,0 +1,330 @@
+/* =========================================================
+   Warung Burjo Barokah — Stylesheet
+   Konsep: hangat seperti lampu gas warung burjo di malam
+   hari (krem & amber), dengan aksen kain kotak-kotak
+   (gingham) merah-putih yang identik dengan meja warung.
+   Palet sengaja dibuat hangat & redup — TIDAK neon.
+   ========================================================= */
+
+:root {
+  --burjo-cream: #fbf3e7;      /* latar belakang utama, hangat seperti nasi putih */
+  --burjo-cream-soft: #fffaf2; /* latar kartu */
+  --burjo-coffee: #3b2417;     /* coklat kopi tua — header, sidebar, teks judul */
+  --burjo-coffee-soft: #5c4434;
+  --burjo-amber: #d97b2b;      /* aksen utama: lampu gas / kuning telur */
+  --burjo-amber-dark: #b8631e;
+  --burjo-red: #b5402f;        /* aksen kain kotak-kotak, dipakai SANGAT terbatas */
+  --burjo-text: #4a3c30;       /* teks utama, coklat redup, bukan hitam pekat */
+  --burjo-muted: #8a7a6a;
+  --burjo-border: #ecdfc9;
+  --burjo-green-soft-bg: #e3f0e3;
+  --burjo-green-soft-text: #2f6b3f;
+  --burjo-red-soft-bg: #fbe6e2;
+  --burjo-red-soft-text: #a23a28;
+  --radius: 14px;
+  --shadow-soft: 0 6px 18px rgba(59, 36, 23, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito Sans', 'Segoe UI', sans-serif;
+  background-color: var(--burjo-cream);
+  color: var(--burjo-text);
+}
+
+h1, h2, h3, h4, h5, .navbar-brand, .sidebar-brand {
+  font-family: 'Poppins', sans-serif;
+}
+
+a { color: var(--burjo-amber-dark); text-decoration: none; }
+a:hover { color: var(--burjo-amber); }
+
+/* ---------- Signature element: gingham strip ----------
+   Pola kotak-kotak kecil meniru kain meja warung burjo.
+   Dipakai terbatas: hanya di bawah navbar & atas footer. */
+.gingham-strip {
+  height: 8px;
+  width: 100%;
+  background-image: conic-gradient(
+    var(--burjo-red) 90deg, #fff 90deg 180deg,
+    var(--burjo-red) 180deg 270deg, #fff 270deg 360deg
+  );
+  background-size: 12px 12px;
+  opacity: 0.55;
+}
+
+/* ---------- Navbar (publik) ---------- */
+.navbar-burjo {
+  background-color: var(--burjo-cream-soft);
+  box-shadow: var(--shadow-soft);
+  padding-top: .85rem;
+  padding-bottom: .85rem;
+}
+.navbar-burjo .navbar-brand {
+  font-weight: 700;
+  color: var(--burjo-coffee);
+  font-size: 1.25rem;
+}
+.navbar-burjo .nav-link {
+  color: var(--burjo-text);
+  font-weight: 600;
+  margin-left: .5rem;
+}
+.navbar-burjo .nav-link:hover { color: var(--burjo-amber-dark); }
+.navbar-burjo .nav-admin {
+  background: var(--burjo-coffee);
+  color: #fff !important;
+  padding: .4rem 1rem;
+  border-radius: 50px;
+}
+.navbar-burjo .nav-admin:hover { background: var(--burjo-amber-dark); }
+
+/* ---------- Hero ---------- */
+.hero-burjo {
+  background: linear-gradient(180deg, #fff6e9 0%, var(--burjo-cream) 100%);
+  border-bottom: 1px solid var(--burjo-border);
+}
+.eyebrow {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--burjo-amber-dark);
+  background: #fff1de;
+  padding: .3rem .9rem;
+  border-radius: 50px;
+}
+.hero-burjo h1 { color: var(--burjo-coffee); }
+.search-box { max-width: 420px; }
+.search-box .form-control {
+  border-radius: 50px;
+  padding: .7rem 1.2rem;
+  border: 1px solid var(--burjo-border);
+}
+.search-box .form-control:focus {
+  border-color: var(--burjo-amber);
+  box-shadow: 0 0 0 .2rem rgba(217, 123, 43, 0.15);
+}
+
+/* ---------- Section titles ---------- */
+.section-title {
+  color: var(--burjo-coffee);
+  font-weight: 700;
+  display: inline-block;
+  border-bottom: 3px solid var(--burjo-amber);
+  padding-bottom: .35rem;
+}
+
+/* ---------- Menu cards (publik) ---------- */
+.menu-card {
+  border: 1px solid var(--burjo-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--burjo-cream-soft);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.menu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+.menu-thumb {
+  position: relative;
+  height: 150px;
+  background: #fff1de;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.menu-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.menu-thumb .thumb-icon { font-size: 3rem; }
+.badge-habis {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--burjo-red);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .25rem .6rem;
+  border-radius: 50px;
+}
+.menu-card .card-title { color: var(--burjo-coffee); font-weight: 700; }
+.menu-card .price { color: var(--burjo-amber-dark); font-weight: 700; margin-bottom: .4rem; }
+
+/* ---------- Footer ---------- */
+.footer-burjo {
+  background: var(--burjo-cream-soft);
+  color: var(--burjo-muted);
+  font-size: .9rem;
+}
+
+/* ===================== ADMIN AREA ===================== */
+.admin-body { background: var(--burjo-cream); }
+.admin-wrapper { display: flex; min-height: 100vh; }
+
+.admin-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: var(--burjo-coffee);
+  color: #f3e9dc;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+}
+.sidebar-brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0 1.5rem 1.5rem;
+  color: #fff;
+}
+.sidebar-nav { display: flex; flex-direction: column; gap: .15rem; }
+.sidebar-nav a {
+  color: #e7d9c7;
+  padding: .7rem 1.5rem;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+}
+.sidebar-nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.sidebar-nav a.active {
+  background: rgba(217, 123, 43, 0.18);
+  border-left-color: var(--burjo-amber);
+  color: #fff;
+}
+.sidebar-nav a.logout-link { color: #e8a99c; margin-top: auto; }
+.sidebar-nav a.logout-link:hover { color: #fff; background: var(--burjo-red); }
+
+.admin-content { flex: 1; min-width: 0; }
+.admin-topbar {
+  background: var(--burjo-cream-soft);
+  border-bottom: 1px solid var(--burjo-border);
+  padding: 1.1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-topbar h5 { color: var(--burjo-coffee); font-weight: 700; }
+.admin-body-inner { padding: 2rem; }
+
+/* Stat cards on dashboard */
+.stat-card {
+  background: var(--burjo-cream-soft);
+  border: 1px solid var(--burjo-border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.stat-icon { font-size: 1.9rem; margin-bottom: .4rem; }
+.stat-number { font-size: 1.9rem; font-weight: 700; color: var(--burjo-coffee); }
+.stat-label { color: var(--burjo-muted); font-weight: 600; font-size: .9rem; }
+
+/* Table card */
+.table-card {
+  background: var(--burjo-cream-soft);
+  border: 1px solid var(--burjo-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.table-burjo { margin: 0; }
+.table-burjo thead { background: #fff1de; }
+.table-burjo thead th {
+  color: var(--burjo-coffee);
+  font-weight: 700;
+  border-bottom: 2px solid var(--burjo-border);
+  white-space: nowrap;
+}
+.table-burjo td { border-color: var(--burjo-border); vertical-align: middle; }
+.table-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
+.table-thumb-icon { font-size: 1.6rem; }
+
+.badge-kategori, .badge-status {
+  display: inline-block;
+  padding: .3rem .7rem;
+  border-radius: 50px;
+  font-size: .78rem;
+  font-weight: 700;
+}
+.badge-makanan { background: #fdebd0; color: #8a5a17; }
+.badge-minuman { background: #dceaf5; color: #2c5f82; }
+.badge-tersedia { background: var(--burjo-green-soft-bg); color: var(--burjo-green-soft-text); }
+.badge-habis { background: var(--burjo-red-soft-bg); color: var(--burjo-red-soft-text); }
+
+/* Forms (create/edit) */
+.form-card {
+  background: var(--burjo-cream-soft);
+  border: 1px solid var(--burjo-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 2rem;
+  max-width: 720px;
+}
+.form-label { font-weight: 600; color: var(--burjo-coffee); }
+.form-control:focus, .form-select:focus {
+  border-color: var(--burjo-amber);
+  box-shadow: 0 0 0 .2rem rgba(217, 123, 43, 0.15);
+}
+.current-image { max-width: 160px; border-radius: 10px; border: 1px solid var(--burjo-border); }
+
+/* Buttons */
+.btn-burjo {
+  background: var(--burjo-amber);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: .55rem 1.4rem;
+  border-radius: 50px;
+}
+.btn-burjo:hover { background: var(--burjo-amber-dark); color: #fff; }
+
+/* Login page */
+.login-page {
+  background: linear-gradient(180deg, #fff6e9 0%, var(--burjo-cream) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.login-card {
+  background: var(--burjo-cream-soft);
+  border: 1px solid var(--burjo-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 2.2rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  overflow: hidden;
+}
+.login-strip { position: absolute; top: 0; left: 0; right: 0; }
+
+/* Pagination */
+.pagination .page-link { color: var(--burjo-amber-dark); border-color: var(--burjo-border); }
+.pagination .page-item.active .page-link {
+  background: var(--burjo-amber);
+  border-color: var(--burjo-amber);
+}
+
+/* Alerts */
+.alert-success { background: var(--burjo-green-soft-bg); color: var(--burjo-green-soft-text); border: none; }
+.alert-danger { background: var(--burjo-red-soft-bg); color: var(--burjo-red-soft-text); border: none; }
+
+/* Responsive: sidebar collapses to top bar on small screens */
+@media (max-width: 768px) {
+  .admin-wrapper { flex-direction: column; }
+  .admin-sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; padding: 1rem; }
+  .sidebar-brand { padding: 0 1rem 0 0; }
+  .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+  .sidebar-nav a { padding: .5rem .9rem; border-left: none; border-radius: 50px; }
+  .sidebar-nav a.logout-link { margin-top: 0; margin-left: auto; }
+}
+
+/* Accessibility: visible focus ring on interactive elements */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--burjo-amber);
+  outline-offset: 2px;
+}
