@@ -32,6 +32,20 @@ $routes->setAutoRoute(false);
 // Halaman publik (tampilan menu burjo)
 $routes->get('/', 'Home::index');
 
+// Halaman Pemesanan — diakses pelanggan
+$routes->get('pesan', 'PesananController::index');
+$routes->post('pesan/checkout', 'PesananController::checkout');
+$routes->get('pesan/status/(:segment)', 'PesananController::status/$1');
+$routes->get('bayar/(:segment)', 'PesananController::bayar/$1');
+$routes->post('bayar/konfirmasi/(:segment)', 'PesananController::konfirmasiBayar/$1');
+
+// Cart
+$routes->get('cart', 'CartController::index');
+$routes->post('cart/insert', 'CartController::insert');
+$routes->post('cart/update', 'CartController::update');
+$routes->get('cart/remove/(:num)', 'CartController::remove/$1');
+$routes->get('cart/destroy', 'CartController::destroy');
+
 // Area Admin
 $routes->group('admin', function ($routes) {
     // Login & logout (tidak butuh filter)
@@ -40,9 +54,17 @@ $routes->group('admin', function ($routes) {
     $routes->get('logout', 'Admin\AuthController::logout');
 
     // Halaman yang wajib login (dilindungi filter "adminauth")
-    $routes->group('', ['filter' => 'adminauth'], function ($routes) {
+        $routes->group('', ['filter' => 'adminauth'], function ($routes) {
         $routes->get('/', 'Admin\DashboardController::index');
         $routes->get('dashboard', 'Admin\DashboardController::index');
+
+        $routes->get('pelanggan', 'Admin\PelangganController::index');
+        $routes->get('pelanggan/create', 'Admin\PelangganController::create');
+        $routes->post('pelanggan/store', 'Admin\PelangganController::store');
+        $routes->get('pelanggan/edit/(:num)', 'Admin\PelangganController::edit/$1');
+        $routes->post('pelanggan/update/(:num)', 'Admin\PelangganController::update/$1');
+        $routes->get('pelanggan/delete/(:num)', 'Admin\PelangganController::delete/$1');
+    $routes->get('menu/export-pdf', 'Admin\MenuController::exportPdf');
 
         // CRUD Menu Makanan & Minuman
         $routes->get('menu', 'Admin\MenuController::index');
@@ -51,6 +73,12 @@ $routes->group('admin', function ($routes) {
         $routes->get('menu/edit/(:num)', 'Admin\MenuController::edit/$1');
         $routes->post('menu/update/(:num)', 'Admin\MenuController::update/$1');
         $routes->get('menu/delete/(:num)', 'Admin\MenuController::delete/$1');
+
+        // Kelola Pesanan & Transaksi
+        $routes->get('pesanan', 'Admin\PesananController::index');
+        $routes->get('pesanan/detail/(:num)', 'Admin\PesananController::detail/$1');
+        $routes->post('pesanan/update-status/(:num)', 'Admin\PesananController::updateStatus/$1');
+        $routes->get('pesanan/qr-warung', 'Admin\PesananController::qrWarung');
     });
 });
 

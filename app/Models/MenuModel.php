@@ -10,6 +10,8 @@ class MenuModel extends Model
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
     protected $allowedFields = ['nama', 'kategori', 'harga', 'deskripsi', 'gambar', 'status'];
+    protected $useSoftDeletes = true;
+    protected $deletedField   = 'deleted_at';   
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

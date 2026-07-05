@@ -4,6 +4,8 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\MenuModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class MenuController extends BaseController
 {
@@ -14,9 +16,6 @@ class MenuController extends BaseController
         $this->menuModel = new MenuModel();
     }
 
-    /**
-     * Daftar semua menu (bisa dicari & difilter per kategori) + pagination.
-     */
     public function index()
     {
         $keyword  = $this->request->getGet('q');
@@ -122,24 +121,39 @@ class MenuController extends BaseController
     }
 
     public function delete($id)
-    {
-        $menu = $this->menuModel->find($id);
+{
+    $menu = $this->menuModel->find($id);
 
-        if (! $menu) {
-            return redirect()->to('/admin/menu')->with('error', 'Menu tidak ditemukan.');
-        }
-
-        if (! empty($menu['gambar'])) {
-            $path = FCPATH . 'assets/uploads/menu/' . $menu['gambar'];
-            if (is_file($path)) {
-                unlink($path);
-            }
-        }
-
-        $this->menuModel->delete($id);
-
-        return redirect()->to('/admin/menu')->with('success', 'Menu berhasil dihapus.');
+    if (!$menu) {
+        return redirect()->to('/admin/menu')->with('error', 'Menu tidak ditemukan.');
     }
+
+    $this->menuModel->delete($id);
+
+    return redirect()->to('/admin/menu')->with('success', 'Menu berhasil dihapus (soft delete).');
+}
+public function exportPdf()
+{
+    $makanan = $this->menuModel->getByCategory('makanan');
+    $minuman = $this->menuModel->getByCategory('minuman');
+
+    $html = view('admin/menu/pdf', [
+        'makanan' => $makanan,
+        'minuman' => $minuman,
+        'tanggal' => date('d/m/Y H:i'),
+    ]);
+
+    $options = new Options();
+    $options->set('defaultFont', 'Arial');
+    $options->set('isHtml5ParserEnabled', true);
+
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+
+    $dompdf->stream('daftar-menu-burjo.pdf', ['Attachment' => true]);
+}
 
     /**
      * Helper: proses upload gambar (opsional).

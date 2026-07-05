@@ -12,6 +12,11 @@
         <button type="submit" class="btn btn-outline-secondary">Cari</button>
     </form>
     <a href="<?= base_url('admin/menu/create') ?>" class="btn btn-burjo">+ Tambah Menu</a>
+    <a href="<?= base_url('admin/menu/export-pdf') ?>" 
+   class="btn btn-sm btn-danger" 
+   style="border-radius:20px;font-size:.85rem;">
+    📄 Export PDF
+</a>
 </div>
 
 <div class="table-card">

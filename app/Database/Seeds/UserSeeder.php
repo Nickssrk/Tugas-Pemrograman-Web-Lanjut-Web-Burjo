@@ -8,6 +8,9 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
+        if ($this->db->table('users')->where('username', 'admin')->countAllResults() > 0) {
+    return;
+}
         $data = [
             'username'   => 'admin',
             'password'   => password_hash('admin123', PASSWORD_DEFAULT),
